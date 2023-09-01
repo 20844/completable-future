@@ -6,20 +6,16 @@ import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class ThenAcceptDemo {
+public class ThenRunDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        //需求：异步读取 filter_words.txt 文件中的内容，读取完成后，把内容转换成数组(敏感词数组），然后打印敏感词数组
+        //我们仅仅想知這敏感词汇的文件是否读取完成
         CommonUtils.printThreadLog("main start");
         CompletableFuture.supplyAsync(() -> {
             CommonUtils.printThreadLog("读取filter_words文件");
             String filterwords = CommonUtils.readFile("filter_words.txt");
             return filterwords;
-        }).thenApply((content) -> {
-            CommonUtils.printThreadLog("内容转换成数组(敏感词数组)");
-            String[] filterwords = content.split(",");
-            return filterwords;
-        }).thenAccept((content)->{
-            CommonUtils.printThreadLog("filterwords: " + Arrays.toString(content));
+        }).thenRun(()-> {
+            CommonUtils.printThreadLog("读取filter_words完成");
         });
 
         CommonUtils.printThreadLog("main continue");
@@ -28,8 +24,8 @@ public class ThenAcceptDemo {
 
         /**
          * 总结
-         * thenAccept(Consumer<T>）可以对异步任务的结果进行消费使用，
-         * 方法返回一个不带返回值结果的CompletableFuture对象
+         * thenRun(Runnable action）
+         * 当异步任务完成后，只想得到一个完成的通知，不使用上一步异步任务的结果,就可以thenRun
          * 通过会把它用在链式操作的末端
          */
 
