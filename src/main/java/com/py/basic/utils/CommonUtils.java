@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
@@ -61,14 +63,19 @@ public class CommonUtils {
     }
     //打印输出带线程信息的日志
     public static void printThreadLog(String message){
-        // 时间戳 | 线程id | 线程名 | 日志信息
+        // 当前时间 | 线程id | 线程名 | 日志信息
         String result = new StringJoiner(" | ")
-                .add(String.valueOf(System.currentTimeMillis()))
+                .add(getCurrentTime())
                 .add(String.format("%2d",Thread.currentThread().getId()))
                 .add(Thread.currentThread().getName())
                 .add(message)
                 .toString();
         System.out.println(result);
+    }
+
+    private static String getCurrentTime() {
+        LocalTime time = LocalTime.now();
+        return time.format(DateTimeFormatter.ofPattern("[HH:mm:ss.SSS]"));
     }
 
 }
