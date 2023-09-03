@@ -54,7 +54,7 @@ public class HttpRequest {
 
         PriceResult priceResult = new PriceResult("拼多多");
         priceResult.setPrice(5399);
-        CommonUtils.printThreadLog("获取拼多多上" + productName + "价格完成:5300");
+        CommonUtils.printThreadLog("获取拼多多上" + productName + "价格完成:5399");
         return priceResult;
     }
     // 获取拼多多平台的优惠

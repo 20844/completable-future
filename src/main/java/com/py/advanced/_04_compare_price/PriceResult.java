@@ -23,7 +23,7 @@ public class PriceResult {
     @Override
     public String toString() {
         return "PriceResult{" +
-                "平台='" + platform +
+                "平台=" + platform +
                 ", 平台价=" + price +
                 ", 优惠价=" + discount +
                 ", 最终价=" + realPrice +
